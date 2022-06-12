@@ -28,27 +28,27 @@ namespace CrowdParlay.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _dbContext;
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
-        private readonly ApplicationDbContext _dbContext;
 
         public ExternalLoginModel(
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
+            ApplicationDbContext dbContext,
             IUserStore<ApplicationUser> userStore,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender,
-            ApplicationDbContext dbContext)
+            IEmailSender emailSender)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _dbContext = dbContext;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _logger = logger;
             _emailSender = emailSender;
-            _dbContext = dbContext;
         }
 
         /// <summary>
@@ -130,12 +130,26 @@ namespace CrowdParlay.Areas.Identity.Pages.Account
             {
                 return RedirectToPage("./Lockout");
             }
+            
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+            // If the external login is not associated with the user, then use email.
+            if (email is not null)
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user is not null)
+                {
+                    await _userManager.AddLoginAsync(user, info);
+                    await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+                    return LocalRedirect(returnUrl);
+                }
+            }
 
             // If the user does not have an account, then ask the user to create an account.
             ReturnUrl = returnUrl;
             ProviderDisplayName = info.ProviderDisplayName;
             
-            if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
+            if (email is not null)
             {
                 Input = new InputModel
                 {
