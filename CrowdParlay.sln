@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdParlay.Core", "src\Cro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1A75D092-FE78-4C66-8779-58898372598C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdParlay.Services", "src\CrowdParlay.Services\CrowdParlay.Services.csproj", "{79754A42-2731-4CAC-90A1-B619EA8AA00A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +19,17 @@ Global
 		{0BE235CF-2F9F-4CFE-9A80-DAC9F02C9E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BE235CF-2F9F-4CFE-9A80-DAC9F02C9E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BE235CF-2F9F-4CFE-9A80-DAC9F02C9E67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79754A42-2731-4CAC-90A1-B619EA8AA00A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79754A42-2731-4CAC-90A1-B619EA8AA00A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79754A42-2731-4CAC-90A1-B619EA8AA00A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79754A42-2731-4CAC-90A1-B619EA8AA00A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0BE235CF-2F9F-4CFE-9A80-DAC9F02C9E67} = {1A75D092-FE78-4C66-8779-58898372598C}
+		{79754A42-2731-4CAC-90A1-B619EA8AA00A} = {1A75D092-FE78-4C66-8779-58898372598C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {337FD7CF-0042-4F4F-973F-481F0946C6FD}
