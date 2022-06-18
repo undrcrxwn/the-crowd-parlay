@@ -23,4 +23,8 @@
     <Folder Include="Views\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CrowdParlay.Infrastructure\CrowdParlay.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

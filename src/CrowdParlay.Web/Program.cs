@@ -1,4 +1,6 @@
-using CrowdParlay.Web.Data;
+using CrowdParlay.Infrastructure;
+using CrowdParlay.Infrastructure.Identity;
+using CrowdParlay.Infrastructure.Persistence;
 using CrowdParlay.Web.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -25,6 +27,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.SignIn.RequireConfirmedEmail = true;
     options.User.RequireUniqueEmail = true;
 });
+
+builder.Services.AddInfrastructure();
 
 builder.Services.AddAuthentication().AddGoogle(options =>
 {

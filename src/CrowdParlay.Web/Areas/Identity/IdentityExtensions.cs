@@ -1,4 +1,4 @@
-﻿using CrowdParlay.Web.Data;
+﻿using CrowdParlay.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 
 namespace CrowdParlay.Web.Areas.Identity;
