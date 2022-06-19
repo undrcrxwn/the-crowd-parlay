@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CrowdParlay.Web.DataAnnotations;
+namespace CrowdParlay.Infrastructure.Data.Annotations;
 
 public sealed class UserNameOrEmailAddressAttribute : ValidationAttribute
 {

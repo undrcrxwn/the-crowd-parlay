@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using CrowdParlay.Infrastructure.Identity;
-using CrowdParlay.Web.DataAnnotations;
+using CrowdParlay.Infrastructure.Data.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;

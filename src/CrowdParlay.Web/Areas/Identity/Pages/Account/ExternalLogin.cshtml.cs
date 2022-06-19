@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CrowdParlay.Infrastructure.Identity;
 using CrowdParlay.Infrastructure.Persistence;
-using CrowdParlay.Web.DataAnnotations;
+using CrowdParlay.Infrastructure.Data.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Identity;
