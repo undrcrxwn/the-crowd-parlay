@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdParlay.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdParlay.Infrastructure", "src\CrowdParlay.Infrastructure\CrowdParlay.Infrastructure.csproj", "{B8D6EC32-2CC2-4F5E-8D99-034459F3BA5C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{38B7A5CB-E687-421E-B1F4-3C6D16C3A379}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrowdParlay.Infrastructure.UnitTests", "tests\CrowdParlay.Infrastructure.UnitTests\CrowdParlay.Infrastructure.UnitTests.csproj", "{57D16975-FA44-4A6E-8E17-743D71341DA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,10 @@ Global
 		{B8D6EC32-2CC2-4F5E-8D99-034459F3BA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8D6EC32-2CC2-4F5E-8D99-034459F3BA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8D6EC32-2CC2-4F5E-8D99-034459F3BA5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57D16975-FA44-4A6E-8E17-743D71341DA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57D16975-FA44-4A6E-8E17-743D71341DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57D16975-FA44-4A6E-8E17-743D71341DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57D16975-FA44-4A6E-8E17-743D71341DA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +52,7 @@ Global
 		{9C263483-31A6-415A-9C86-B28AB9AA0C9B} = {1A75D092-FE78-4C66-8779-58898372598C}
 		{C5B7C789-9479-4996-9FAC-0704EA48DC30} = {1A75D092-FE78-4C66-8779-58898372598C}
 		{B8D6EC32-2CC2-4F5E-8D99-034459F3BA5C} = {1A75D092-FE78-4C66-8779-58898372598C}
+		{57D16975-FA44-4A6E-8E17-743D71341DA4} = {38B7A5CB-E687-421E-B1F4-3C6D16C3A379}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {337FD7CF-0042-4F4F-973F-481F0946C6FD}

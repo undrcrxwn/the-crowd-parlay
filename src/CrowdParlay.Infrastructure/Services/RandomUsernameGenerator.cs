@@ -2,7 +2,7 @@
 
 namespace CrowdParlay.Infrastructure.Services;
 
-internal class RandomUsernameGenerator : IUsernameGenerator
+public class RandomUsernameGenerator : IUsernameGenerator
 {
     #region Words
 
