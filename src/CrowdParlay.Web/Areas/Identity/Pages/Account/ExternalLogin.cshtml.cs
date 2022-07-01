@@ -110,13 +110,19 @@ namespace CrowdParlay.Web.Areas.Identity.Pages.Account
             
             // Sign in the user with this external login provider if the user already has a login.
             var result = await _signInManager.ExternalLoginSignInAsync(
-                info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+                info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: false);
 
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name,
                     info.LoginProvider);
                 return LocalRedirect(returnUrl);
+            }
+            
+            if (result.RequiresTwoFactor)
+            {
+                return RedirectToPage("./LoginWith2fa",
+                    new {ReturnUrl = returnUrl, RememberMe = false});
             }
 
             if (result.IsLockedOut)
