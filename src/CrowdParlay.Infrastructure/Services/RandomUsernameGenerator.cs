@@ -2,7 +2,7 @@
 
 namespace CrowdParlay.Infrastructure.Services;
 
-public class RandomUsernameGenerator : IUsernameGenerator
+internal class RandomUsernameGenerator : IUsernameGenerator
 {
     #region Words
     
@@ -47,10 +47,11 @@ public class RandomUsernameGenerator : IUsernameGenerator
         var adjective = GetRandomElement(Adjectives);
         var noun = GetRandomElement(Nouns);
         var postfix = Guid.NewGuid().ToString().Split('-').First();
+        var username = $"{adjective}{noun}{postfix}";
         
-        return $"{adjective}{noun}{postfix}";
+        return username.Substring(0, Math.Min(20, username.Length));
     }
     
-    private static T GetRandomElement<T>(IReadOnlyList<T> words)
-        => words[Random.Next(words.Count)];
+    private static T GetRandomElement<T>(IReadOnlyList<T> elements)
+        => elements[Random.Next(elements.Count)];
 }
