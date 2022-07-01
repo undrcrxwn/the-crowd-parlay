@@ -5,7 +5,7 @@ namespace CrowdParlay.Infrastructure.Services;
 public class RandomUsernameGenerator : IUsernameGenerator
 {
     #region Words
-
+    
     private static readonly string[] Adjectives =
     {
         "autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark", "summer", "icy", "delicate", "quiet",
@@ -46,9 +46,9 @@ public class RandomUsernameGenerator : IUsernameGenerator
     {
         var adjective = GetRandomElement(Adjectives);
         var noun = GetRandomElement(Nouns);
-        var number = Random.Next(100, 1000);
+        var postfix = Guid.NewGuid().ToString()[..8];
         
-        return $"{adjective}{noun}{number}";
+        return $"{adjective}{noun}{postfix}";
     }
     
     private static T GetRandomElement<T>(IReadOnlyList<T> words)
