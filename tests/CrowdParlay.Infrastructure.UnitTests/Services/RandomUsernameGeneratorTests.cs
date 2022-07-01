@@ -15,7 +15,7 @@ public class RandomUsernameGeneratorTests
 
         var usernames = Enumerable.Range(0, 100_000)
             .Select(_ => usernameGenerator.GenerateUsername());
-        
+
         var allUnique = usernames
             .GroupBy(x => x)
             .All(x => x.Count() == 1);
