@@ -46,7 +46,7 @@ public class RandomUsernameGenerator : IUsernameGenerator
     {
         var adjective = GetRandomElement(Adjectives);
         var noun = GetRandomElement(Nouns);
-        var postfix = Guid.NewGuid().ToString()[..8];
+        var postfix = Guid.NewGuid().ToString().Split('-').First();
         
         return $"{adjective}{noun}{postfix}";
     }
