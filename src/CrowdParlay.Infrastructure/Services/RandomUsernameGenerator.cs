@@ -7,5 +7,5 @@ internal class RandomUsernameGenerator : IUsernameGenerator
     public string GenerateUsername() => Guid.NewGuid()
         .ToString()
         .Replace("-", string.Empty)
-        .Substring(0, 20);
+        .Substring(0, 15);
 }
