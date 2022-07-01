@@ -5,6 +5,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
+using CrowdParlay.Application.Common.Abstractions;
 using CrowdParlay.Infrastructure.Identity;
 using CrowdParlay.Infrastructure.Persistence;
 using CrowdParlay.Infrastructure.Data.Annotations;
@@ -22,6 +23,7 @@ namespace CrowdParlay.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _dbContext;
+        private readonly IUsernameGenerator _usernameGenerator;
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly IEmailSender _emailSender;
@@ -31,6 +33,7 @@ namespace CrowdParlay.Web.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             ApplicationDbContext dbContext,
+            IUsernameGenerator usernameGenerator,
             IUserStore<ApplicationUser> userStore,
             ILogger<ExternalLoginModel> logger,
             IEmailSender emailSender)
@@ -38,6 +41,7 @@ namespace CrowdParlay.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _userManager = userManager;
             _dbContext = dbContext;
+            _usernameGenerator = usernameGenerator;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _logger = logger;
@@ -152,7 +156,7 @@ namespace CrowdParlay.Web.Areas.Identity.Pages.Account
             {
                 Input = new InputModel
                 {
-                    UserName = "RANDOM_USERNAME"
+                    UserName = _usernameGenerator.GenerateUsername()
                 };
                 
                 return Page();
