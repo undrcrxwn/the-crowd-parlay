@@ -1,79 +1,51 @@
-using CrowdParlay.Infrastructure;
-using CrowdParlay.Infrastructure.Identity;
-using CrowdParlay.Infrastructure.Persistence;
-using CrowdParlay.Web.Infrastructure;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
 
-var builder = WebApplication.CreateBuilder(args);
-var connectionString =
-    builder.Configuration.GetConnectionString("ApplicationDbContextConnection")
-    ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
+namespace CrowdParlay.Web;
 
-// Add services to the container.
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
-        options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.Configure<IdentityOptions>(options =>
+public class Program
 {
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredUniqueChars = 2;
-    options.SignIn.RequireConfirmedEmail = true;
-    options.User.RequireUniqueEmail = true;
-});
+    public async static Task<int> Main(string[] args)
+    {
+        Log.Logger = new LoggerConfiguration()
+#if DEBUG
+            .MinimumLevel.Debug()
+#else
+            .MinimumLevel.Information()
+#endif
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
+            .Enrich.FromLogContext()
+            .WriteTo.Async(c => c.File("Logs/logs.txt"))
+            .WriteTo.Async(c => c.Console())
+            .CreateLogger();
 
-builder.Services.AddInfrastructure();
-
-builder.Services.AddAuthentication().AddGoogle(options =>
-{
-    var googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
-    options.ClientId = googleAuthNSection["ClientId"];
-    options.ClientSecret = googleAuthNSection["ClientSecret"];
-});
-
-builder.Services.AddRouting(option =>
-    option.ConstraintMap["slugify"] = typeof(SlugifyParameterTransformer));
-
-builder.Services.AddRazorPages(options =>
-{
-    options.Conventions.Add(
-        new PageRouteTransformerConvention(
-            new SlugifyParameterTransformer()));
-});
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
+        try
+        {
+            Log.Information("Starting web host.");
+            var builder = WebApplication.CreateBuilder(args);
+            builder.Host.AddAppSettingsSecretsJson()
+                .UseAutofac()
+                .UseSerilog();
+            await builder.AddApplicationAsync<CrowdParlayWebModule>();
+            var app = builder.Build();
+            await app.InitializeApplicationAsync();
+            await app.RunAsync();
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Host terminated unexpectedly!");
+            return 1;
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
 }
-else
-{
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapRazorPages();
-
-app.MapControllerRoute(
-    "default",
-    "{controller:slugify}/{action:slugify}/{id?}",
-    new {controller = "Home", action = "Index"});
-
-app.Run();

@@ -1,16 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <Import Project="..\..\common.props" />
 
-    <ItemGroup>
-      <Folder Include="Common\Behaviours" />
-      <Folder Include="Common\Exceptions" />
-      <Folder Include="Parlays\Commands" />
-      <Folder Include="Parlays\Queries" />
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>CrowdParlay</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CrowdParlay.Domain\CrowdParlay.Domain.csproj" />
+    <ProjectReference Include="..\CrowdParlay.Application.Contracts\CrowdParlay.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Account.Application" Version="5.3.2" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="5.3.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="5.3.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="5.3.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="5.3.2" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Application" Version="5.3.2" />
+  </ItemGroup>
 
 </Project>

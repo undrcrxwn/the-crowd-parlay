@@ -1,19 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 
-namespace CrowdParlay.Web.Pages
+namespace CrowdParlay.Web.Pages;
+
+public class IndexModel : CrowdParlayPageModel
 {
-    public class IndexModel : PageModel
+    public void OnGet()
     {
-        private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+    }
 
-        public void OnGet()
-        {
-
-        }
+    public async Task OnPostLoginAsync()
+    {
+        await HttpContext.ChallengeAsync("oidc");
     }
 }
