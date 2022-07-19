@@ -32,6 +32,7 @@
     <Content Remove="Logs\**" />
     <EmbeddedResource Remove="Logs\**" />
     <None Remove="Logs\**" />
+    <Content Remove="appsettings.secrets.json" />
   </ItemGroup>
 
 </Project>
